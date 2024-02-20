@@ -1,7 +1,7 @@
 <?php
-function emptyInputRegister($name,$emil,$password,$phone,$birth,$ID,$country,$city){
+function emptyInputRegister($name,$email,$password,$phone,$birth,$ID,$country,$city){
     $result;
-    if(empty($name)||empty($emil)||empty($password)||empty($phone)||empty($birth)||empty($ID)||empty($country)||empty($name)){
+    if(empty($name)||empty($email)||empty($password)||empty($phone)||empty($birth)||empty($ID)||empty($country)||empty($city)){
         $result=true;
     }else{
         $result=false;
@@ -9,14 +9,14 @@ function emptyInputRegister($name,$emil,$password,$phone,$birth,$ID,$country,$ci
     return $result;
 }
 
-function nameexist($conn,$name,$emil,$phone,$ID) {
-    $sql = "SELECT * From 'drivertext' WHERE usersname = ? OR WHERE usersemail = ? OR WHERE usersphone = ? OR WHERE usersId = ?;";
+function nameexist($conn,$name,$email,$phone,$ID) {
+    $sql = "SELECT * From drivertext WHERE usersname = ? OR usersemail = ? OR usersphone = ? OR usersId = ?;";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql)){
         header("location: ../Register.php?error=stmtfail");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ssii",$name,$emil,$phone,$ID);
+    mysqli_stmt_bind_param($stmt,"ssii",$name,$email,$phone,$ID);
     mysqli_stmt_execute($stmt);
     $resultdata = mysqli_stmt_get_result($stmt);
     if ($row = mysqli_fetch_assoc($resultdata)){
@@ -28,9 +28,9 @@ function nameexist($conn,$name,$emil,$phone,$ID) {
     mysqli_stmt_close($stmt);
 }
 
-function invalidEmail($emil){
+function invalidEmail($email){
     $result;
-    if(!filter_var($emil,FILTER_VALIDATE_EMAIL)){
+    if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
         $result=true;
     }else{
         $result=false;
@@ -38,8 +38,8 @@ function invalidEmail($emil){
     return $result;
 }
 
-function createUser($conn,$name,$emil,$password,$phone,$birth,$ID,$country,$city){
-    $sql = "INSERT INTO 'drivertext' (usersname,usersemail,userspassword,usersphone,usersId,userscountry,userscity) VALUES (?,?,?,?,?,?,?,?);";
+function createUser($conn,$name,$email,$password,$phone,$birth,$ID,$country,$city){
+    $sql = "INSERT INTO 'drivertext' (usersname,usersemail,userspassword,usersphone,,usersId,userscountry,userscity) VALUES (?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql)){
         header("location: ../Register.php?error=stmtfail");
@@ -47,7 +47,7 @@ function createUser($conn,$name,$emil,$password,$phone,$birth,$ID,$country,$city
     }
     $hashedpwd = password_hash($password,PASSWORD_DEFAULT);
 
-    mysqli_stmt_bind_param($stmt,"sssisiss",$name,$emil,$hashedpwd,$phone,$birth,$ID,$country,$city);
+    mysqli_stmt_bind_param($stmt,"sssisiss",$name,$email,$hashedpwd,$phone,$birth,$ID,$country,$city);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../Register.php?error=nono");

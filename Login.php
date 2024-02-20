@@ -2,7 +2,7 @@
 include_once 'Header.php'
 ?>
     <H2>Login</H2>
-    <form action="Login.inc.php" method="post">
+    <form action="include/Login.inc.php" method="post">
         <div class="mb-3 col-3 mx-1">
             <label>Email / phone / ID</label>
             <input type="text" name="uid" class="form-control">

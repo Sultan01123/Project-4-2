@@ -2,7 +2,7 @@
 include_once 'Header.php'
 ?>
     <H1>Welcome to WESELT!</H1>
-    <form action="Register.inc.php" method="post">
+    <form action="include/Register.inc.php" method="post">
         <div class="col-6 mx-1">
             <label>Full name</label>
             <input type="text" name="fullname" class="form-control">
@@ -17,15 +17,15 @@ include_once 'Header.php'
         </div>
         <div class="col-6 mx-1">
             <label>Phone</label>
-            <input type="text" name="phone" class="form-control">
+            <input type="number" name="phone" class="form-control">
         </div>
         <div class="col-6 mx-1">
-            <label>Birth date</label>
-            <input type="text" name="birth" class="form-control">
+            <label>Birth date</label>   
+            <input type="date" name="birth" class="form-control">
         </div>
         <div class="col-6 mx-1">
             <label>ID</label>
-            <input type="text" name="ID" class="form-control">
+            <input type="number" name="ID" class="form-control">
         </div>
         <div class="col-6 mx-1">
             <label>Country</label>
@@ -44,7 +44,7 @@ include_once 'Header.php'
     if(isset($_GET["error"])){
         if($_GET["error"]== "emptyinput"){
             echo "<p class ='mx-1'>fill in all fields!</p>";
-        }elseif($_GET["error"]== "nameexist"){
+        }elseif($_GET["error"]== "nameexists"){
             echo "<p class ='mx-1'>Input exist!</p>";
         }elseif($_GET["error"]== "invalidEmail"){
             echo "<p class ='mx-1'>Choose a proper email!</p>";
