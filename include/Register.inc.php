@@ -12,20 +12,21 @@ if (isset($_POST["submit"])){
     require_once 'Dbh.inc.php';
     require_once 'function.inc.php';
 
-    if(emptyInputSignup($name,$emil,$password,$phone,$birth,$ID,$country,$city) !== false){
-        header("location: ../Register?error=emptyinput");
+    if(emptyInputRegister($name,$emil,$password,$phone,$birth,$ID,$country,$city) !== false){
+        header("Location: ../Register.php?error=emptyinput");
         exit();
     }
-    if(nameexist($conn,$name) !== false){
-        header("location: ../Register?error=nameexists");
+    if(nameexist($conn,$name,$emil,$phone,$ID) !== false){
+        header("Location: ../Register.php?error=nameexists");
         exit();
     }
     if(invalidEmail($emil) !== false){
-        header("location: ../Register?error=invalidEmail");
+        header("Location: ../Register.php?error=invalidEmail");
         exit();
     }
     createUser($conn,$name,$emil,$password,$phone,$birth,$ID,$country,$city);
 }else{
-    header("localtion: ../Register.php");
+    header("Location: ../Register.php");
     exit();
 }
+?>
